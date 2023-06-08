@@ -1,0 +1,26 @@
+--Create tiktok database
+CREATE TABLE tiktok (id INTEGER PRIMARY KEY,date INTEGER,hours_used INTEGER, videos_watched INTEGER);
+INSERT INTO tiktok (date,hours_used,videos_watched) VALUES ("7-1","3","100");
+INSERT INTO tiktok (date,hours_used,videos_watched) VALUES ("7-2", "1","15");
+INSERT INTO tiktok (date,hours_used,videos_watched) VALUES ("7-3","4","125");
+INSERT INTO tiktok (date,hours_used,videos_watched) VALUES ("7-4","2","75");
+INSERT INTO tiktok (date,hours_used,videos_watched) VALUES ("7-5","1","50");
+
+--Display all columns from the database
+SELECT * FROM tiktok;
+
+--Add a column for emotion felt while watching the videos
+ALTER TABLE tiktok ADD emotion TEXT;
+SELECT * FROM tiktok;
+
+--Fill in the emotion under the new column
+UPDATE tiktok SET emotion = "happy" WHERE id=1;
+UPDATE tiktok SET emotion = "sad" WHERE id=2;
+UPDATE tiktok SET emotion = "angry" WHERE id=3;
+UPDATE tiktok SET emotion = "sad" WHERE id=4;
+UPDATE tiktok SET emotion = "excited" WHERE id=5;
+SELECT * FROM tiktok;
+
+--Delete a row from the database
+DELETE FROM tiktok WHERE id=3;
+SELECT * FROM tiktok;
