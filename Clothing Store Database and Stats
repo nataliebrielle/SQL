@@ -1,0 +1,33 @@
+--Create a clothing store database
+
+CREATE TABLE clothing (id INTEGER PRIMARY KEY, gender TEXT, age_group INTEGER, type TEXT, color TEXT, price INTEGER);
+
+INSERT INTO clothing (gender,age_group,type,color,price) VALUES ("female","kids","pants","pink",12);
+INSERT INTO clothing (gender,age_group,type,color,price) VALUES ("female","kids","shirts","black",5);
+INSERT INTO clothing (gender,age_group,type,color,price) VALUES ("male","adult","tie","blue",3);
+INSERT INTO clothing (gender,age_group,type,color,price) VALUES ("female","adult","dress","black",25);
+INSERT INTO clothing (gender,age_group,type,color,price) VALUES ("male","kids","shorts","blue",20);
+INSERT INTO clothing (gender,age_group,type,color,price) VALUES ("female","adult","shirts","white",6);
+INSERT INTO clothing (gender,age_group,type,color,price) VALUES ("female","kids","skirts","black",10);
+INSERT INTO clothing (gender,age_group,type,color,price) VALUES ("male","kids","pants","blue",25);
+INSERT INTO clothing (gender,age_group,type,color,price) VALUES ("male","adult","shirt","green",7);
+INSERT INTO clothing (gender,age_group,type,color,price) VALUES ("female","kids","shirts","purple",4);
+INSERT INTO clothing (gender,age_group,type,color,price) VALUES ("male","kids","shirts","orange",9);
+INSERT INTO clothing (gender,age_group,type,color,price) VALUES ("male","adult","shorts","tan",15);
+INSERT INTO clothing (gender,age_group,type,color,price) VALUES ("female","kids","dress","blue",25);
+INSERT INTO clothing (gender,age_group,type,color,price) VALUES ("male","kids","jacket","brown",30);
+INSERT INTO clothing (gender,age_group,type,color,price) VALUES ("male","adult","jacket","brown",50);
+INSERT INTO clothing (gender,age_group,type,color,price) VALUES ("female","kids","jacket","red",30);
+INSERT INTO clothing (gender,age_group,type,color,price) VALUES ("female","adult","jacket","red",50);
+
+--Display the entire stores database
+SELECT * FROM clothing;
+
+--Display the gender,type, and price of clothing from the store
+SELECT gender,type,price FROM clothing;
+
+--What is the price of each type of clothing from most expensive to least expensive
+SELECT type,price FROM clothing ORDER BY price desc;
+
+--What is the sum of all of the kids,female clothing
+SELECT gender,age_group,SUM(price) FROM clothing WHERE gender = "female" AND age_group = "kids"
