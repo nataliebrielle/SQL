@@ -1,0 +1,36 @@
+--Create a database of singers names and their songs
+CREATE TABLE singers (id INTEGER PRIMARY KEY,personal_id INTEGER,name TEXT,song TEXT);
+
+INSERT INTO singers (personal_id,name,song) VALUES (7,"Taylor Swift","shake it off");
+INSERT INTO singers (personal_id,name,song) VALUES (7,"Taylor Swift","red");
+INSERT INTO singers (personal_id,name,song) VALUES (7,"Taylor Swift","bad blood");
+INSERT INTO singers (personal_id,name,song) VALUES (15,"David Archuleta", "post cards in the sky");
+INSERT INTO singers (personal_id,name,song) VALUES (15,"David Archuleta","crush");
+INSERT INTO singers (personal_id,name,song) VALUES (15,"David Archuleta","ok all right");
+INSERT INTO singers (personal_id,name,song) VALUES (1,"Hannah Montana", "the climb");
+INSERT INTO singers (personal_id,name,song) VALUES (1,"Hannah Montana","nobodys perfect");
+INSERT INTO singers (personal_id,name,song) VALUES (1,"Hannah Montana","the best of both worlds");
+INSERT INTO singers (personal_id,name,song) VALUES (20,"Meghan Trainor", "all about that bass");
+INSERT INTO singers (personal_id,name,song) VALUES (20,"Meghan Trainor","mother");
+INSERT INTO singers (personal_id,name,song) VALUES (20,"Meghan Trainor","me too");
+INSERT INTO singers (personal_id,name,song) VALUES (12,"Nick Jonas", "close");
+INSERT INTO singers (personal_id,name,song) VALUES (12,"Nick Jonas","Jealous");
+INSERT INTO singers (personal_id,name,song) VALUES (12,"Nick Jonas","burnin up");
+
+--Create a database showing the age of the singers and where they are from
+CREATE TABLE other (id INTEGER PRIMARY KEY,personal_id INTEGER,age INTEGER,home TEXT);
+
+INSERT INTO other (personal_id,age,home) VALUES (7,33,"Pennsylvania");
+INSERT INTO other (personal_id,age,home) VALUES (15,32,"Florida");
+INSERT INTO other (personal_id,age,home) VALUES (1,30,"Tennessee");
+INSERT INTO other (personal_id,age,home) VALUES (20,29,"Massachusetts");
+INSERT INTO other (personal_id,age,home) VALUES (12,30,"Texas");
+
+--Display database showing the names of the singers and what songs they wrote
+SELECT name,song FROM singers;
+
+--What are the ages of the singers from oldest to youngest
+SELECT singers.name,other.age FROM singers JOIN other ON singers.personal_id=other.personal_id GROUP BY singers.name ORDER BY other.age desc;
+
+--Where are the singers from
+SELECT singers.name,other.home FROM singers JOIN other ON singers.personal_id=other.personal_id GROUP BY singers.name;
