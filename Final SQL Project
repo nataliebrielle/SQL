@@ -1,0 +1,67 @@
+--Show Customers (their full names, customer ID, and country) who are not in the US 
+SELECT FirstName,LastName,Customerid,Country FROM chinook.customers WHERE Country <> 'US';
+
+--Show only the Customers from Brazil
+SELECT * FROM chinook.customers WHERE Country = 'Brazil';
+
+--Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country
+SELECT c.FirstName,c.LastName,i.InvoiceId,i.InvoiceDate,i.BillingCountry FROM chinook.customers AS c 
+LEFT OUTER JOIN chinook.invoices AS i ON c.CustomerId=i.CustomerId WHERE i.BillingCountry = 'Brazil';
+
+--Show the Employees who are Sales Agents
+SELECT * FROM chinook.employees WHERE Title = 'Sales Support Agent';
+
+--Find a unique/distinct list of billing countries from the Invoice table
+SELECT distinct BillingCountry FROM chinook.invoices;
+
+--Provide a query that shows the invoices associated with each sales agent
+SELECT e.FirstName,e.LastName,i.InvoiceID FROM chinook.employees AS e JOIN chinook.customers AS c
+ON e.EmployeeId=c.SupportRepId JOIN chinook.invoices AS i ON i.CustomerId=c.CustomerId;
+
+--Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers
+SELECT inv.Total,cust.FirstName,cust.LastName,cust.Country,emp.FirstName AS employee_firstname,emp.LastName AS employee_lastname 
+FROM chinook.employees AS emp LEFT OUTER JOIN chinook.customers AS cust ON cust.SupportRepId = emp.EmployeeId 
+LEFT OUTER JOIN chinook.invoices AS inv ON inv.CustomerId = cust.CustomerId 
+WHERE emp.Title = 'Sales Support Agent';
+
+--How many Invoices were there in 2009
+SELECT COUNT(*) FROM chinook.invoices WHERE InvoiceDate like '2009%';
+
+--What are the total sales for 2009
+SELECT SUM(Total) AS total_sales FROM chinook.invoices WHERE InvoiceDate like '2009%';
+
+--Write a query that includes the purchased track name with each invoice line ID
+SELECT t.name, i.InvoiceLineId FROM chinook.tracks As t LEFT OUTER JOIN chinook.invoice_items AS i
+ON t.TrackId = i.TrackId;
+
+--Write a query that includes the purchased track name AND artist name with each invoice line ID
+SELECT t.name AS track_name,a.name AS artist_name,inv.InvoiceLineId  FROM chinook.invoice_items AS inv 
+LEFT OUTER JOIN chinook.tracks AS t ON inv.TrackId = t.TrackId 
+LEFT OUTER JOIN chinook.artists AS a ON t.AlbumId = a.ArtistId;
+
+--Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre
+SELECT t.Name AS track_name, a.Title AS album_name,m.Name AS media_type,g.Name AS genre FROM chinook.tracks AS t 
+LEFT OUTER JOIN chinook.albums AS a ON t.AlbumId = a.AlbumId LEFT OUTER JOIN chinook.media_types AS m 
+ON t.MediaTypeId = m.MediaTypeId LEFT OUTER JOIN chinook.genres AS g ON t.GenreId = g.GenreId;
+
+--Show the total sales made by each sales agent
+SELECT emp.FirstName,emp.LastName,ROUND(SUM(inv.Total)) AS total_sales FROM chinook.employees AS emp 
+LEFT OUTER JOIN chinook.customers AS cust ON emp.EmployeeId = cust.SupportRepId 
+LEFT OUTER JOIN chinook.invoices AS inv ON inv.CustomerId = cust.CustomerId 
+WHERE emp.Title = 'Sales Support Agent' GROUP BY emp.FirstName;
+
+--Which sales agent made the most dollars in sales in 2009
+SELECT emp.FirstName,emp.LastName,ROUND(SUM(inv.Total),2) AS total_sales FROM chinook.employees AS emp 
+LEFT OUTER JOIN chinook.customers AS cust ON emp.EmployeeId = cust.SupportRepId 
+LEFT OUTER JOIN chinook.invoices AS inv ON inv.CustomerId = cust.CustomerId 
+WHERE emp.Title = 'Sales Support Agent' AND inv.InvoiceDate LIKE '2009%' GROUP BY emp.FirstName
+ORDER BY total_sales DESC LIMIT 1;
+
+--Find the artist of each album and order the albums alphabetically
+SELECT alb.Title,art.Name FROM chinook.albums AS alb LEFT OUTER JOIN chinook.artists AS art 
+ON alb.ArtistId=art.ArtistId ORDER BY alb.Title ASC;
+
+--Find the artists and their genres
+SELECT art.Name,gen.Name FROM chinook.artists AS art LEFT OUTER JOIN chinook.albums AS alb 
+ON art.ArtistId = alb.ArtistId LEFT OUTER JOIN chinook.tracks AS track ON alb.AlbumId = track.AlbumId
+LEFT OUTER JOIN chinook.genres AS gen ON track.GenreId = gen.GenreId GROUP BY art.Name
