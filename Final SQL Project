@@ -1,5 +1,5 @@
 --Show Customers (their full names, customer ID, and country) who are not in the US 
-SELECT FirstName,LastName,Customerid,Country FROM chinook.customers WHERE Country <> 'US';
+SELECT FirstName,LastName,Customerid,Country FROM chinook.customers WHERE Country <> 'USA';
 
 --Show only the Customers from Brazil
 SELECT * FROM chinook.customers WHERE Country = 'Brazil';
